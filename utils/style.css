@@ -1,0 +1,12 @@
+.formitem{
+    margin: 8px;
+}
+.loginform{
+    background-color: black;
+    color:white;
+    border: 2px white;
+    border-radius: 5px;
+    width: fit-content;
+    text-align: center;
+    
+}
