@@ -69,3 +69,24 @@ exports.login=(async (req,res,next)=>{
         }
     }).catch(err=>console.log(err))
 })
+
+
+
+
+
+
+
+// exports.expense=((req,res,next)=>{
+   
+//     res.sendFile(path.join(__dirname, '../Views/expensefeautres.html'),);
+//     res.sendFile(path.join(__dirname, '../Views/style.css'),);
+// })
+
+// exports.style=((req,res,next)=>{
+
+//     res.sendFile(path.join(__dirname, '../Views/style.css'),);
+// })
+
+
+
+

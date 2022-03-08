@@ -30,7 +30,10 @@ form.addEventListener('click',(e)=>{
         axios
         .post("http://localhost:3000/login",obj)
         .then((res)=>{
-            console.log(res)})
+            console.log(res)
+            window.location= "http://localhost:3000/expensefeautres.html";
+            // axios.get("http://localhost:3000/expense")
+        })
         .catch(err=>console.log(err))    
     
     }
