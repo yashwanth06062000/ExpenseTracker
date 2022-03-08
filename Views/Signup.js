@@ -15,7 +15,10 @@ form.addEventListener('click',(e)=>{
         axios
         .post("http://localhost:3000/signup",obj)
         .then((res)=>{
-            console.log(res)})
+            console.log(res)
+            window.location.replace('./Login.html')
+            // window.location= "http://localhost:3000/Views/Login.html";
+        })
         .catch(err=>console.log(err))    
     
     }
