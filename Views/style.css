@@ -19,3 +19,41 @@
     text-align: center;
     
 }
+.expenses{
+    /* border:2px solid white; */
+    width: fit-content;
+}
+.expensediv{
+    display: flex;
+     border:2px solid black;
+    border-radius: 5px;
+    margin:5px;
+    padding: 5px;
+}
+.desc1{
+    margin:2px;
+    border:2px solid black ;
+    padding: 2px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.category{
+    border:2px solid black ;
+    margin:5px;
+    padding: 2px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.money{
+    border:2px solid black ;
+    margin:5px;
+    padding: 2px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.dltexp{
+    background-color: red;
+    color: white;
+    margin: 5px;
+    height:40px;
+
+}

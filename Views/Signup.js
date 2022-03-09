@@ -16,11 +16,16 @@ form.addEventListener('click',(e)=>{
         .post("http://localhost:3000/signup",obj)
         .then((res)=>{
             console.log(res)
+            alert(res.data.message)
             window.location.replace('./Login.html')
-            // window.location= "http://localhost:3000/Views/Login.html";
+            
         })
         .catch(err=>console.log(err))    
     
     }
 
 })
+
+
+
+

@@ -1,3 +1,6 @@
+
+const expense=require('../models/expense')
+
 exports.addexpense=(async (req,res,next)=>{
     const money=req.body.money;
     const description=req.body.description;
@@ -10,9 +13,26 @@ exports.addexpense=(async (req,res,next)=>{
     }).then(()=>{
         res.json({message:"successfully added"})
     })
+})
+
+
+exports.getexpenses=(async (req,res,next)=>{
+    req.user.getExpenses().then((expenses)=>{
+        res.json({expenses})
+
+    }).catch(err=>console.log(err))
+})
+
+exports.deleteexpense=(async (req,res,next)=>{
+    const dltid=req.body.id;
+    expense.findByPk(dltid).then((expensed)=>{
+         expensed.destroy();
+         res.send(201);
 
 
 
-     
+    }).catch(err=>console.log(err))
+    
 
 })
+
