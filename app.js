@@ -9,6 +9,8 @@ const jwt=require('jsonwebtoken');
 
 const user=require("./models/usersignup")
 const expenses=require("./models/expense")
+const order=require("./models/orders")
+
 const auth = require("./controllers/authorization")
 
 
@@ -17,17 +19,25 @@ dotenv.config();
 
 const publicRoutes=require('./routes/public')
 const expenseRoutes=require('./routes/expense')
+const purchaseRoutes=require('./routes/purchase')
 
 app.use(bodyparser.json())
 
 
-const path = require('path')
+
+
+
+
 user.hasMany(expenses);
 expenses.belongsTo(user);
+
+user.hasMany(order);
+order.belongsTo(user);
 
 
 app.use(publicRoutes)
 app.use('*', auth.authenticate) 
+app.use(purchaseRoutes)
 app.use(expenseRoutes)
 
 

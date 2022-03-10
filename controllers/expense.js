@@ -27,7 +27,7 @@ exports.deleteexpense=(async (req,res,next)=>{
     const dltid=req.body.id;
     expense.findByPk(dltid).then((expensed)=>{
          expensed.destroy();
-         res.send(201);
+         res.sendStatus(201)
 
 
 

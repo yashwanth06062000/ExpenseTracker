@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExpenseTreacker</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpenseTreacker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
  <div id="Signupdiv">   
@@ -30,10 +31,11 @@
         
    </form>
   
-   <div class="expenses" id="expenses">
-
-   </div>
    
+   <button type="submit" class="paymentbtn" id="paymentbtn">buy premium membership</button>
+
+</div>
+<div class="expenses" id="expenses">
 
 </div>
 <script src="expensefeautres.js"></script>
