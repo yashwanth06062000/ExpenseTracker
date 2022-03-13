@@ -71,6 +71,15 @@
     color :white;
     position: fixed;
     top: 5px;
+    right:75px;
+  } 
+  .signout{
+    height: 30px;
+    width: 70px;
+    background-color:white;
+    color :red;
+    position: fixed;
+    top: 5px;
     right: 5px;
   } 
 .active{
@@ -92,4 +101,18 @@
     border-radius: 3px;
     width: fit-content;
     color: black;
+}
+.hide{
+    display: none;
+}
+.forgotpassword{
+    border:2px solid black;
+    width: fit-content;
+    color:white;
+    background-color: black;
+}
+#sendreset{
+    background-color: green;
+    color:white;
+    
 }

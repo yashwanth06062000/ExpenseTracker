@@ -110,6 +110,7 @@ expensecontainer.addEventListener("click",(e)=>{
 })
 
 const rzpbtn=document.getElementById('paymentbtn')
+
 rzpbtn.addEventListener("click",async ()=>{
     const token=localStorage.getItem("token");
     let obj={
@@ -197,27 +198,20 @@ async function is__premium(){
                   `
         
                   leaderboard.appendChild(expensediv)
-             }
-
-
-                
-
-
-
-
-
-
-
-
-
-            })
+             }})
             .catch(err=>console.log(err))
 
         }
     }).catch(err=>console.log(err))
+    document.getElementById("paymentbtn").classList.add("hide")
   
 
 }
+const signout=document.getElementById('signout')
+signout.addEventListener("click",()=>{
+    window.location.replace('./Login.html')
+
+})
 
 
 
