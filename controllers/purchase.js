@@ -63,9 +63,6 @@ exports.leaderboard=(req,res)=>
     ]}).then((users)=>{
 
         res.json({users})
-
-      
-
     }).catch(err=>console.log(err))
 
 

@@ -7,6 +7,10 @@ form.addEventListener('click',(e)=>{
         window.location.replace('./Signup.html')
         // window.location= "http://localhost:3000/Views/Signup.html";
     }
+    if(e.target.className=="forgotbutton"){
+        window.location.replace('./forgotpassword.html')
+
+    }
     if(e.target.className=="loginbutton"){
         const email=document.getElementById("email").value
         const password=document.getElementById("password").value

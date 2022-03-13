@@ -140,6 +140,7 @@ rzpbtn.addEventListener("click",async ()=>{
              payment_id: response.razorpay_payment_id,
          }, { headers: {"Authorization" : token1} }).then(() => {
              alert('You are a Premium User Now')
+             window.location.replace('./expensefeautres.html')
          }).catch(() => {
              alert('Something went wrong. Try Again!!!')
          })
@@ -172,7 +173,7 @@ async function is__premium(){
     const token=localStorage.getItem("token");
    await axios
     .post("http://localhost:3000/is_premium",obj,{headers:{"Authorization":token}}).then((res)=>{
-        console.log(res.data.ispremium)
+        // console.log(res.data.ispremium)
         if(res.data.ispremium){
             const body = document.body
             const i1=document.getElementById('expenseform')
@@ -184,7 +185,7 @@ async function is__premium(){
             axios
             .get("http://localhost:3000/leaderboard",{headers:{"Authorization":token}})
             .then((users)=>{
-                console.log(users.data.users)
+                // console.log(users.data.users)
 
 
                 for(let i=0;i<users.data.users.length;i++)
