@@ -1,5 +1,7 @@
 const encript=require('bcryptjs');
 const user=require('../models/usersignup')
+const ledb=require("../models/leaderboard")
+
 
 
 
@@ -31,7 +33,12 @@ exports.addUser=(async(req,res,next)=>{
     email:emain,
     phoneno:mobileno,
     password:hashpassword  }).then((result)=>{
-        res.json({message:"user Created Successfully",Success:true})
+         ledb.create({UserId:result.id,
+            username:result.name,
+        }).then(()=>{
+            res.json({message:"user Created Successfully",Success:true})
+        })
+       
 
     }
     ).catch(err=>console.log(err))

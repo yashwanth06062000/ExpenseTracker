@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 
 const Order=require('../models/orders')
 const usertable=require("../models/usersignup")
+const ledb=require("../models/leaderboard")
 
 const razorpay=new Razorpay({
     key_id:'rzp_test_CjoltYyX7FjsPn',
@@ -47,11 +48,30 @@ exports.updatetransactionstatus=(req,res)=>{
     }
 
 }
-exports.is_premium=(req,res)=>{
-        if(req.user.ispremiumuser){
+exports.is_premium=(req,res)=>
+{
+        if(req.user.ispremiumuser)
+        {
             res.json({ispremium:true})
         }
-    }
+}
+
+exports.leaderboard=(req,res)=>
+{
+    ledb.findAll({order: [
+        ['totalexpense', 'DESC']
+    ]}).then((users)=>{
+
+        res.json({users})
+
+      
+
+    }).catch(err=>console.log(err))
+
+
+
+
+}
 
 
 

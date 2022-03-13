@@ -1,5 +1,6 @@
 
 const expense=require('../models/expense')
+const ledb=require("../models/leaderboard")
 
 exports.addexpense=(async (req,res,next)=>{
     const money=req.body.money;
@@ -10,10 +11,19 @@ exports.addexpense=(async (req,res,next)=>{
         ctegory:category,
         money:money,
         description:description
-    }).then(()=>{
-        res.json({message:"successfully added"})
-    })
-})
+    }).then(  ()=>{
+        console.log(req.user)
+      req.user.getLeaderboard().then(async (e)=>{
+         var value= e.dataValues.totalexpense
+         value +=Number(money)
+         await e.update({totalexpense: value}).then((e1)=>{console.log(e1)}).catch(err=>console.log(err))
+        
+        
+    }).catch(err=>console.log(err))
+    res.json({message:"successfully added"})
+       
+    
+})})
 
 
 exports.getexpenses=(async (req,res,next)=>{
@@ -26,6 +36,11 @@ exports.getexpenses=(async (req,res,next)=>{
 exports.deleteexpense=(async (req,res,next)=>{
     const dltid=req.body.id;
     expense.findByPk(dltid).then((expensed)=>{
+        req.user.getLeaderboard().then(async (e)=>{
+            var value= e.dataValues.totalexpense
+            value -=Number(expensed.money)
+            await e.update({totalexpense: value})})
+
          expensed.destroy();
          res.sendStatus(201)
 

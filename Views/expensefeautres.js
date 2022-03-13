@@ -1,6 +1,7 @@
 
 
 const expensecontainer=document.getElementById("expenses")
+const leaderboard=document.getElementById("leaderboard")
 
 
 
@@ -163,21 +164,59 @@ rzpbtn.addEventListener("click",async ()=>{
     })
 
 })
-function is__premium(){
+async function is__premium(){
     let obj={
         id:123
     }
     const token=localStorage.getItem("token");
-    axios
+   await axios
     .post("http://localhost:3000/is_premium",obj,{headers:{"Authorization":token}}).then((res)=>{
         console.log(res.data.ispremium)
         if(res.data.ispremium){
             const body = document.body
             const i1=document.getElementById('expenseform')
+            const i2=document.getElementById('expenses')
             body.classList.add('active')
-            i1.classList.add('active')
+            i1.classList.add('active1')
+            i2.classList.add('active1')
+            //adding leaderboard to the premium users
+            axios
+            .get("http://localhost:3000/leaderboard",{headers:{"Authorization":token}})
+            .then((users)=>{
+                console.log(users.data.users)
+
+
+                for(let i=0;i<users.data.users.length;i++)
+                {
+                  const expensediv=document.createElement("div")
+                  expensediv.classList.add('expensediv')
+                  expensediv.innerHTML=`
+                  <span>${i+1}</span>
+                  <span class="desc1"}>${users.data.users[i].username}</span>
+                  <span class="category"id="category">${users.data.users[i].totalexpense}</span>
+                  `
+        
+                  leaderboard.appendChild(expensediv)
+             }
+
+
+                
+
+
+
+
+
+
+
+
+
+            })
+            .catch(err=>console.log(err))
+
         }
     }).catch(err=>console.log(err))
+  
+
 }
 
 

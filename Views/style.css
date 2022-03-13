@@ -22,13 +22,17 @@
 .expenses{
     /* border:2px solid white; */
     width: fit-content;
+    border-radius: 10px;
 }
 .expensediv{
     display: flex;
-     border:2px solid black;
     border-radius: 5px;
     margin:5px;
     padding: 5px;
+    background-color: white;
+    color:black;
+    width: fit-content;
+    border-radius: 10px;
 }
 .desc1{
     margin:2px;
@@ -71,5 +75,21 @@
   } 
 .active{
     background-color: black;
-    color:white
+    color:white;
+}
+.active1{
+    background-color: white;
+    color:black;
+
+}
+.leaderboard{
+    border:2px solid black;
+    border-radius: 5px;
+}
+.leaderboard{
+    background-color: white;
+    border:2px solid black;
+    border-radius: 3px;
+    width: fit-content;
+    color: black;
 }

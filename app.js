@@ -10,6 +10,7 @@ const jwt=require('jsonwebtoken');
 const user=require("./models/usersignup")
 const expenses=require("./models/expense")
 const order=require("./models/orders")
+const ledb=require("./models/leaderboard")
 
 const auth = require("./controllers/authorization")
 
@@ -34,28 +35,20 @@ expenses.belongsTo(user);
 user.hasMany(order);
 order.belongsTo(user);
 
+user.hasOne(ledb);
+ledb.belongsTo(user);
+
+
+
+
+
+
+
 
 app.use(publicRoutes)
 app.use('*', auth.authenticate) 
 app.use(purchaseRoutes)
 app.use(expenseRoutes)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
