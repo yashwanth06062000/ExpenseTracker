@@ -37,6 +37,7 @@ exports.deleteexpense=(async (req,res,next)=>{
     const dltid=req.body.id;
     expense.findByPk(dltid).then((expensed)=>{
         req.user.getLeaderboard().then(async (e)=>{
+            // console.log(e,"i am e boy u are searching for")
             var value= e.dataValues.totalexpense
             value -=Number(expensed.money)
             await e.update({totalexpense: value})})

@@ -6,6 +6,7 @@ const ledb=require("../models/leaderboard")
 
 
 
+
 const jwt = require('jsonwebtoken');
 
 
@@ -80,10 +81,7 @@ exports.login=(async (req,res,next)=>{
         }
     }).catch(err=>console.log(err))
 })
-exports.forgotpassword=((req,res)=>{
-    console.log("i am password forgot called")
 
-})
 
 
 

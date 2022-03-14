@@ -11,8 +11,10 @@ const user=require("./models/usersignup")
 const expenses=require("./models/expense")
 const order=require("./models/orders")
 const ledb=require("./models/leaderboard")
+const fgtpwd=require("./models/ForgotPasswordRequests")
 
 const auth = require("./controllers/authorization")
+const fogotpasswordroutes=require("./routes/forgotpassword")
 
 
 app.use(cors());
@@ -38,19 +40,14 @@ order.belongsTo(user);
 user.hasOne(ledb);
 ledb.belongsTo(user);
 
+user.hasMany(fgtpwd);
+fgtpwd.belongsTo(user);
 
-
-
-
-
-
-
+app.use(fogotpasswordroutes)
 app.use(publicRoutes)
 app.use('*', auth.authenticate) 
 app.use(purchaseRoutes)
 app.use(expenseRoutes)
-
-
 
 db.sync().then(()=>{
     app.listen(3000)
