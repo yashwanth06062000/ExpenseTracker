@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const Forgotpassword=require("../models/ForgotPasswordRequests")
 const encript=require('bcryptjs');
 const passwordchangetable=require("../models/usersignup")
+const NodeMailer = require('nodemailer')
 
 
 
@@ -12,7 +13,6 @@ dotenv.config();
 
 
 exports.forgotpassword=(async (req,res)=>{
-    // console.log("i am password forgot called")
     const email=req.body.email;
     
     const id=uuid.v4();
@@ -28,25 +28,35 @@ exports.forgotpassword=(async (req,res)=>{
     })
     
     sgMail.setApiKey(process.env.Send_Grid_Api)
+    const transporter = NodeMailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 587,
+        auth: {
+            user: process.env.Mail_id,
+            pass: process.env.Password
+        }
+    })
     const msg = {
         to: email, // Change to your recipient
-        from: 'yashwanthkrishna150@gmail.com', // Change to your verified sender
+        from: 'developer06062000@gmail.com', // Change to your verified sender
         subject: 'Link for Your Pasword changing @expenseTracker',
         text: 'Hie please find below link for your password changing',
         html: `<a href="http://localhost:3000/resetpassword/${id}>Reset password</a>`,
     }
+     transporter.sendMail(msg)
 
-    sgMail
-    .send(msg)
+   
     .then((response) => {
     // console.log(response[0].statusCode)
     // console.log(response[0].headers)
+    // sgMail
+    // .send(msg)
     console.log("sendmail successfully")
     return res.status(response[0].statusCode).json({message: 'Link to reset password sent to your mail ', sucess: true})
 
    })
    .catch((error) => {
-     throw new Error(error);
+    console.log(error)
   })
 }
 else{
@@ -60,16 +70,10 @@ exports.resetpassword = (req, res) => {
         if(forgotpasswordrequest){
             forgotpasswordrequest.update({ isactive: false});
             res.status(200).send(`<html>
-                                    <script>
-                                        function formsubmitted(e){
-                                            e.preventDefault();
-                                            console.log('called')
-                                        }
-                                    </script>
                                     <form action="/updatepassword/${id}" method="get">
                                         <label for="newpassword">Enter New password</label>
                                         <input name="newpassword" type="password" required></input>
-                                        <button>reset password</button>
+                                        <button>Reset password</button>
                                     </form>
                                 </html>`
                                 )
@@ -79,7 +83,6 @@ exports.resetpassword = (req, res) => {
     })
 }
 exports.updatepassword=(async (req,res)=>{
-    console.log(req.query,req.params,"i am the you are seaching for")
     const { newpassword } = req.query;
     const { resetpasswordid } = req.params;
     const hashpassword= await encript.hash(newpassword,10);
@@ -87,7 +90,7 @@ exports.updatepassword=(async (req,res)=>{
         passwordchangetable.findAll({where:{id:usertochange[0].dataValues.UserId}}).then((us)=>{
             console.log(us)
             us[0].update({password: hashpassword}).then(()=>{
-                res.sendStatus(200)
+                res.json({message:"successfully changed the password"})
             })
 
         }).catch(err=>console.log(err))
