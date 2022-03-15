@@ -39,20 +39,14 @@ exports.forgotpassword=(async (req,res)=>{
     const msg = {
         to: email, // Change to your recipient
         from: 'developer06062000@gmail.com', // Change to your verified sender
-        subject: 'Link for Your Pasword changing @expenseTracker',
+        subject: 'Link to Your Pasword changing @expenseTracker',
         text: 'Hie please find below link for your password changing',
-        html: `<a href="http://localhost:3000/resetpassword/${id}>Reset password</a>`,
+        html: `<a href="http://localhost:3000/resetpassword/${id}">Reset password</a>`
     }
      transporter.sendMail(msg)
-
-   
     .then((response) => {
-    // console.log(response[0].statusCode)
-    // console.log(response[0].headers)
-    // sgMail
-    // .send(msg)
     console.log("sendmail successfully")
-    return res.status(response[0].statusCode).json({message: 'Link to reset password sent to your mail ', sucess: true})
+    return res.json({message: 'Link to reset password sent to your mail ', sucess: true})
 
    })
    .catch((error) => {

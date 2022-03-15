@@ -9,5 +9,7 @@ document.getElementById("sendreset").addEventListener("click",(e)=>{
     .post("http://localhost:3000/forgotpassword",obj)
     .then((res)=>{
         alert(res.data.message);
+        window.location.replace('./Login.html')
+
     })
 })
