@@ -1,6 +1,7 @@
 
 const expense=require('../models/expense')
 const ledb=require("../models/leaderboard")
+const items_perpage=2;
 
 exports.addexpense=(async (req,res,next)=>{
     const money=req.body.money;
@@ -27,8 +28,29 @@ exports.addexpense=(async (req,res,next)=>{
 
 
 exports.getexpenses=(async (req,res,next)=>{
-    req.user.getExpenses().then((expenses)=>{
-        res.json({expenses})
+    console.log("i am in expenses")
+  const page= req.query.page || 1 ;
+  let totalitems=0
+  const userId=req.user.id;
+  const expcount=await expense.count({where:{UserId:userId}})
+  const hasnextpage=items_perpage*page<expcount;
+  const haspreviouspage=page>1;
+  const nextpage=Number(page)+1;
+  const previouspage=Number(page)-1;
+  const lastpage=Math.ceil(expcount/items_perpage)
+  let obj={
+      currentpage:Number(req.query.page),
+      hasnextpage:hasnextpage,
+      haspreviouspage:haspreviouspage,
+      nextpage:nextpage,
+      previouspage:previouspage,
+      lastpage:lastpage
+  }
+
+
+
+req.user.getExpenses({offset:(page-1)*items_perpage,limit:items_perpage}).then((expenses)=>{
+        res.json({expenses,success:true,obj})
 
     }).catch(err=>console.log(err))
 })

@@ -143,3 +143,16 @@
     position: fixed;
     right:45%;
 }
+#pagenation{
+    display: flex;
+}
+.page{
+    border: 1px solid red;
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    color:black;
+   margin:5px;
+
+
+}

@@ -1,5 +1,6 @@
 
 
+
 const expensecontainer=document.getElementById("expenses")
 const leaderboard=document.getElementById("leaderboard")
 
@@ -69,10 +70,53 @@ expenseform.addEventListener("click",(e)=>{
 window.addEventListener('DOMContentLoaded',(e)=>{
     is__premium()
    
+   const pagenation=document.getElementById("pagenation");
+   pagenation.innerHTML=""
+   expensecontainer.innerHTML=""
     axios
-    .get("http://localhost:3000/getexpenses",{headers:{"Authorization":token}})
+   
+    .get("http://localhost:3000/getexpenses/?page=1",{headers:{"Authorization":token}})
     .then((expenses)=>{
+        // console.log(expenses.data.obj)
+        const pages=expenses.data.obj
+        if(pages.currentpage!=1 && pages.previouspage!=1){
+            const newpg=document.createElement("a");
+            newpg.setAttribute('id','1')
+            newpg.setAttribute("class","page")
+            newpg.innerText="1";
+            pagenation.appendChild(newpg)
+
+        }
+        if(pages.haspreviouspage){
+            const newpg2=document.createElement("a")
+            newpg2.setAttribute("class","page")
+            newpg2.setAttribute("id",`${pages.previouspage}`)
+            newpg2.innerText=`${pages.previouspage}`
+            pagenation.appendChild(newpg2);
+        }
+       
+        const newpg1=document.createElement("a")
+        newpg1.setAttribute("id",`${pages.currentpage}`)
+        newpg1.setAttribute("class","page")
+        newpg1.innerText=`${pages.currentpage}`
+        pagenation.appendChild(newpg1)
         
+        if(pages.hasnextpage){
+            console.log("i am has next page>>>>>>>>>>>>>>>>>>>>>>>")
+            const newpg3=document.createElement("a")
+            newpg3.setAttribute("class","page")
+            newpg3.setAttribute("id",`${pages.nextpage}`)
+            newpg3.innerText=`${pages.nextpage}`
+            pagenation.appendChild(newpg3);
+        }
+        if(pages.lastpage !== pages.currentpage && pages.nextpage!==pages.lastpage){
+            const newpg4=document.createElement("a")
+            newpg4.setAttribute("class","page")
+            newpg4.setAttribute("id",`${pages.lastpage}`)
+            newpg4.innerText=`${pages.lastpage}`
+            pagenation.appendChild(newpg4);
+        }
+
         const UserExpenses=expenses.data.expenses;
         for(let i=0;i<UserExpenses.length;i++)
         {
@@ -87,7 +131,8 @@ window.addEventListener('DOMContentLoaded',(e)=>{
           `
 
           expensecontainer.appendChild(expensediv)
-     }
+        }
+
 
     })
     .catch(err=>console.log(err))
@@ -219,5 +264,78 @@ report.addEventListener("click",()=>{
    
 })
 
+const pageevent=document.getElementById("pagenation")
+pageevent.addEventListener("click",(e)=>{
+    const pagenation=document.getElementById("pagenation");
+    if(e.target.className=="page"){
+        const UserId=e.target.id
+        pagenation.innerHTML=""
+        expensecontainer.innerHTML=""
+        axios
+    .get(`http://localhost:3000/getexpenses/?page=${UserId}`,{headers:{"Authorization":token}})
+    .then((expenses)=>{
+        console.log(expenses.data.obj)
+        const pages=expenses.data.obj
+        if(pages.currentpage!=1 && pages.previouspage!=1){
+            const newpg=document.createElement("a");
+            newpg.setAttribute('id','1')
+            newpg.setAttribute("class","page")
+            newpg.innerText="1";
+            pagenation.appendChild(newpg)
+
+        }
+        if(pages.haspreviouspage){
+            const newpg2=document.createElement("a")
+            newpg2.setAttribute("class","page")
+            newpg2.setAttribute("id",`${pages.previouspage}`)
+            newpg2.innerText=`${pages.previouspage}`
+            pagenation.appendChild(newpg2);
+        }
+       
+        const newpg1=document.createElement("a")
+        newpg1.setAttribute("id",`${pages.currentpage}`)
+        newpg1.setAttribute("class","page")
+        newpg1.innerText=`${pages.currentpage}`
+        pagenation.appendChild(newpg1)
+        
+        if(pages.hasnextpage){
+            const newpg3=document.createElement("a")
+            newpg3.setAttribute("class","page")
+            newpg3.setAttribute("id",`${pages.nextpage}`)
+            newpg3.innerText=`${pages.nextpage}`
+            pagenation.appendChild(newpg3);
+        }
+        if(pages.lastpage !== pages.currentpage && pages.nextpage!==pages.lastpage){
+            const newpg4=document.createElement("a")
+            newpg4.setAttribute("class","page")
+            newpg4.setAttribute("id",`${pages.lastpage}`)
+            newpg4.innerText=`${pages.lastpage}`
+            pagenation.appendChild(newpg4);
+        }
+
+        const UserExpenses=expenses.data.expenses;
+        for(let i=0;i<UserExpenses.length;i++)
+        {
+          const expensediv=document.createElement("div")
+          expensediv.classList.add('expensediv')
+          expensediv.innerHTML=`
+          <span>.</span>
+          <span class="desc1"}>${UserExpenses[i].description}</span>
+          <span class="category"id="category">${UserExpenses[i].ctegory}</span>
+          <span class="money"id="money">${UserExpenses[i].money}</span>
+          <button type="submit" class="dltexp" id=${UserExpenses[i].id}>X</button>
+          `
+
+          expensecontainer.appendChild(expensediv)
+        }
+
+
+    })
+    .catch(err=>console.log(err))
+
+
+    }
+
+})
 
 
