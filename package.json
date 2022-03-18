@@ -19,6 +19,7 @@
   "homepage": "https://github.com/yashwanth06062000/ExpenseTracker#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.6.2",
+    "aws-sdk": "^2.1095.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",

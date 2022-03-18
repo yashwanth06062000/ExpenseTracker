@@ -213,6 +213,11 @@ signout.addEventListener("click",()=>{
     window.location.replace('./Login.html')
 
 })
+const report=document.getElementById('reporte')
+report.addEventListener("click",()=>{
+    window.location.replace("./report.html")
+   
+})
 
 
 

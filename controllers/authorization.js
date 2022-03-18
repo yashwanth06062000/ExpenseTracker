@@ -5,6 +5,7 @@ const user=require("../models/usersignup")
 require('dotenv').config()
 
 exports.authenticate = async(req, res, next) => {
+    console.log("hie i am in authentication page")
     try {
         const token = req.header('authorization')
         console.log(token)

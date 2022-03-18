@@ -82,6 +82,16 @@
     top: 5px;
     right: 5px;
   } 
+  .reporte{
+    height: 30px;
+    width: 70px;
+    background-color:white;
+    color :red;
+    position: fixed;
+    top: 5px;
+    right: 150px;
+
+  }
 .active{
     background-color: black;
     color:white;

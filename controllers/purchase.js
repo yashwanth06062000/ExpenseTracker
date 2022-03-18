@@ -4,6 +4,43 @@ const jwt = require('jsonwebtoken')
 const Order=require('../models/orders')
 const usertable=require("../models/usersignup")
 const ledb=require("../models/leaderboard")
+const expenses=require("../models/expense")
+const AWS=require("aws-sdk")
+const dotenv = require('dotenv');
+dotenv.config()
+
+function Uploadfiles(data,filename){
+    console.log("i am in 13")
+    return new Promise((resolve,rejected)=>{
+        let s3bucket=new AWS.S3({
+            accessKeyId:process.env.AwsAccessKey,
+            secretAccessKey:process.env.AwsSecrectKey
+        })
+
+        console.log("i am in 19")
+        console.log("i am in 19",process.env.AwsAccessKey,process.env.AwsSecrectKey)
+        var params={
+            Bucket:"expensetrackerreport",
+            Key:filename,
+            Body:data,
+            ACL:'public-read'
+        }
+        console.log("i am in 25")
+        s3bucket.upload(params,(err,response)=>{
+            console.log("i am in 28")
+            if(err){
+                console.log(err)
+                rejected(err)
+            }
+            else{
+                resolve(response.Location)
+            }
+
+        })
+    })
+
+
+}
 
 const razorpay=new Razorpay({
     key_id:'rzp_test_CjoltYyX7FjsPn',
@@ -64,11 +101,40 @@ exports.leaderboard=(req,res)=>
 
         res.json({users})
     }).catch(err=>console.log(err))
+}
+exports.report=(req,res)=>{
+    console.log(req.user)
+    const user1=req.user
+ 
+    expenses.findAll({where:{UserId:user1.dataValues.id}}).then((re)=>{
+        console.log(re)
+        res.json({re})
+    }).catch(err=>console.log(err))
+   
 
+
+}
+exports.reportdownload=async (req,res)=>{
+    console.log("i am downladed called")
+    try{
+    const data=await expenses.findAll({where:{UserId:req.user.dataValues.id}});
+    const stringifieddata=JSON.stringify(data);
+
+    const filename=`Expense${req.user.dataValues.id}/${new Date()}.txt`
+  
+    const fileurl= await Uploadfiles(stringifieddata,filename)
+    console.log(fileurl)
+    res.status(200).json({fileurl,success:true})
+    }
+    catch(err){
+        res.status(500).json({fileurl:'',success:false})
+
+    }
 
 
 
 }
+
 
 
 
