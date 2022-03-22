@@ -152,7 +152,7 @@ rzpbtn.addEventListener("click", async () => {
     id: "123",
   };
   await axios
-    .post("http://52.66.158.127:3000/buypremium", obj, {
+    .post("localhost:3000/buypremium", obj, {
       headers: { Authorization: token },
     })
     .then((response) => {

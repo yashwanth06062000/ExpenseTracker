@@ -46,13 +46,14 @@ fgtpwd.belongsTo(user);
 
 app.use(fogotpasswordroutes)
 app.use(publicRoutes)
+
+app.use('*', auth.authenticate) 
+app.use(purchaseRoutes)
+app.use(expenseRoutes)
 app.use((req,res)=>{
     res.sendFile(path.join(__dirname,`Views/${req.url}`))
     
     })
-app.use('*', auth.authenticate) 
-app.use(purchaseRoutes)
-app.use(expenseRoutes)
 
 db.sync().then(()=>{
     app.listen(3000)

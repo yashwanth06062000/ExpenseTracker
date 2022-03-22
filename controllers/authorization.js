@@ -6,6 +6,7 @@ require('dotenv').config()
 
 exports.authenticate = async(req, res, next) => {
     try {
+        if(req.header('authorization')){
         const token = req.header('authorization')
         console.log(token)
        
@@ -14,7 +15,10 @@ exports.authenticate = async(req, res, next) => {
         
             req.user =user
         next()
-        }).catch(err=>console.log(err))
+        }).catch(err=>console.log(err))}
+        else{
+            next()
+        }
         
     }catch(err) {
         console.log(err)
