@@ -5,6 +5,7 @@ const cors=require('cors')
 const db=require('./utils/db')
 const dotenv = require('dotenv');
 const jwt=require('jsonwebtoken');
+const path=require('path')
 
 
 const user=require("./models/usersignup")
@@ -45,6 +46,10 @@ fgtpwd.belongsTo(user);
 
 app.use(fogotpasswordroutes)
 app.use(publicRoutes)
+app.use((req,res)=>{
+    res.sendFile(path.join(__dirname,`Views/${req.url}`))
+    
+    })
 app.use('*', auth.authenticate) 
 app.use(purchaseRoutes)
 app.use(expenseRoutes)

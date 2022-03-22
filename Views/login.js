@@ -20,7 +20,7 @@ form.addEventListener('click',(e)=>{
             password:password
         }
         axios
-        .post("http://localhost:3000/login",obj)
+        .post("http://52.66.158.127:3000/login",obj)
         .then((res)=>{
             localStorage.setItem("token",res.data.token);
             window.location.replace('./expensefeautres.html')

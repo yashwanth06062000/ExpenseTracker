@@ -6,7 +6,7 @@ document.getElementById("sendreset").addEventListener("click",(e)=>{
         email:email
     }
     axios
-    .post("http://localhost:3000/forgotpassword",obj)
+    .post("http://52.66.158.127:3000/forgotpassword",obj)
     .then((res)=>{
         alert(res.data.message);
         window.location.replace('./Login.html')

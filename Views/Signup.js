@@ -13,7 +13,7 @@ form.addEventListener('click',(e)=>{
             password:password
         }
         axios
-        .post("http://localhost:3000/signup",obj)
+        .post("http://52.66.158.127:3000/signup",obj)
         .then((res)=>{
             console.log(res)
             alert(res.data.message)

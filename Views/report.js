@@ -13,7 +13,7 @@ period.addEventListener("change",async ()=>{
     const token=await localStorage.getItem("token");
    console.log(token)
     axios
-    .get(`http://localhost:3000/report`,{headers:{"Authorization":token}}).then((res)=>{
+    .get(`http://52.66.158.127:3000/report`,{headers:{"Authorization":token}}).then((res)=>{
         const user2=res.data.re
         expensecontainer.innerHTML="";
 
@@ -47,7 +47,7 @@ downloadreport.addEventListener("click",async ()=>{
     console.log("yes i am clicked download report")
     const token=localStorage.getItem("token");
     axios
-    .get(`http://localhost:3000/downloadreport`,{headers:{"Authorization":token}})
+    .get(`http://52.66.158.127:3000/downloadreport`,{headers:{"Authorization":token}})
     .then((result)=>{
         if(result.status===200){
             var a=document.createElement("a");
